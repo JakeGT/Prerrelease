@@ -120,11 +120,11 @@ def ReceiveMorseCode(Dash, Letter, Dot):
 	print(PlainText)
 
 def SendMorseCode(MorseCode, Letter):
-	PlainText = input("Enter your message (uppercase letters and spaces only): ")
+	PlainText = input("Enter your message (letters and spaces only): ")
 	PlainTextLength = len(PlainText)
 	MorseCodeString = EMPTYSTRING
 	for i in range(PlainTextLength):
-		PlainTextLetter = PlainText[i]
+		PlainTextLetter = PlainText[i].upper()
 		if PlainTextLetter == SPACE:
 			Index = 0
 		elif PlainTextLetter in Letter:
