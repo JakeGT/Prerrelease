@@ -150,7 +150,7 @@ def DisplayMenu():
 def GetMenuOption():
 	MenuOption = EMPTYSTRING
 	while len(MenuOption) != 1:
-		MenuOption = input("Enter your choice: ")
+		MenuOption = (input("Enter your choice: ")).upper()
 	return MenuOption
 		
 def SendReceiveMessages():
