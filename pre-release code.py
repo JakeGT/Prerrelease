@@ -34,22 +34,22 @@ def StripTrailingSpaces(Transmission):
 	return Transmission  
 
 def GetTransmission():
-	FileName = input("Enter file name: ")
-    FNameLen = len(FileName) - 1
-    if FileName[(FNameLen)-4:FNameLen] != ".txt":
-        FileName = FileName = ".txt"
-	try:
-		FileHandle = open(FileName, 'r')
-		Transmission = FileHandle.readline()
-		FileHandle.close()
-		Transmission = StripLeadingSpaces(Transmission)
-		if len(Transmission) > 0:
-			Transmission = StripTrailingSpaces(Transmission)
-			Transmission = Transmission + EOL
-	except:
-		ReportError("No transmission found")
-		Transmission = EMPTYSTRING
-	return Transmission
+    FileName = input("Enter file name: ")
+    FNameLen = len(FileName)
+    if FileName[(FNameLen) - 4:FNameLen] != ".txt":
+        FileName = FileName + ".txt"
+    try:
+        FileHandle = open(FileName, 'r')
+        Transmission = FileHandle.readline()
+        FileHandle.close()
+        Transmission = StripLeadingSpaces(Transmission)
+        if len(Transmission) > 0:
+            Transmission = StripTrailingSpaces(Transmission)
+            Transmission = Transmission + EOL
+    except:
+        ReportError("No transmission found")
+        Transmission = EMPTYSTRING
+    return Transmission
 
 def GetNextSymbol(i, Transmission):
 	if Transmission[i] == EOL:
@@ -167,7 +167,7 @@ def SendReceiveMessages():
 		if MenuOption == 'R':
 			ReceiveMorseCode(Dash, Letter, Dot)
 		elif MenuOption == 'S':
-			SendMorseCode(MorseCode) 
+			SendMorseCode(MorseCode, Letter) 
 		elif MenuOption == 'X':
 			ProgramEnd = True
 		
