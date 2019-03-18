@@ -34,22 +34,24 @@ def StripTrailingSpaces(Transmission):
 	return Transmission  
 
 def GetTransmission():
-    FileName = input("Enter file name: ")
-    FNameLen = len(FileName)
-    if FileName[(FNameLen) - 4:FNameLen] != ".txt":
-        FileName = FileName + ".txt"
-    try:
-        FileHandle = open(FileName, 'r')
-        Transmission = FileHandle.readline()
-        FileHandle.close()
-        Transmission = StripLeadingSpaces(Transmission)
-        if len(Transmission) > 0:
-            Transmission = StripTrailingSpaces(Transmission)
-            Transmission = Transmission + EOL
-    except:
-        ReportError("No transmission found")
-        Transmission = EMPTYSTRING
-    return Transmission
+	FileName = input("Enter file name: ")
+	FNameLen = len(FileName)
+	if FileName[(FNameLen) - 4:FNameLen] != ".txt":
+		FileName = FileName + ".txt"
+	try:
+		FileHandle = open(FileName, 'r')
+		Transmission = FileHandle.readlines()
+		FileHandle.close()
+		for x in range(len(Transmission)):
+			Transmission[x] = Transmission[x].strip("\n")
+			Transmission[x] = StripLeadingSpaces(Transmission[x])
+			if len(Transmission[x]) > 0:
+				Transmission[x] = StripTrailingSpaces(Transmission[x])
+			Transmission[x] = str(Transmission[x]) + EOL
+	except:
+		ReportError("No transmission found")
+		Transmission = EMPTYSTRING
+	return Transmission
 
 def GetNextSymbol(i, Transmission):
 	if Transmission[i] == EOL:
@@ -106,18 +108,19 @@ def Decode(CodedLetter, Dash, Letter, Dot):
 	return Letter[Pointer]
 
 def ReceiveMorseCode(Dash, Letter, Dot): 
-	PlainText = EMPTYSTRING
-	MorseCodeString = EMPTYSTRING
-	Transmission = GetTransmission() 
-	LastChar = len(Transmission) - 1
-	i = 0
-	while i < LastChar:
-		i, CodedLetter = GetNextLetter(i, Transmission)
-		MorseCodeString = MorseCodeString + SPACE + CodedLetter
-		PlainTextLetter = Decode(CodedLetter, Dash, Letter, Dot)
-		PlainText = PlainText + PlainTextLetter
-	print(MorseCodeString)
-	print(PlainText)
+	Transmissions = GetTransmission() 
+	for Transmission in Transmissions:
+		PlainText = EMPTYSTRING
+		MorseCodeString = EMPTYSTRING
+		LastChar = len(Transmission) - 1
+		i = 0
+		while i < LastChar:
+			i, CodedLetter = GetNextLetter(i, Transmission)
+			MorseCodeString = MorseCodeString + SPACE + CodedLetter
+			PlainTextLetter = Decode(CodedLetter, Dash, Letter, Dot)
+			PlainText = PlainText + PlainTextLetter
+		print(MorseCodeString)
+		print(PlainText)
 
 def SendMorseCode(MorseCode, Letter):
 	PlainText = input("Enter your message (letters and spaces only): ")
