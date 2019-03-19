@@ -263,7 +263,7 @@ def GetMenuOption():
   #Takes the user's input and that is now what the program is doing
   MenuOption = EMPTYSTRING
   while len(MenuOption) != 1:
-    MenuOption = input("Enter your choice: ")
+    MenuOption = input("Enter your choice: ").upper()
   return MenuOption
     
 def SendReceiveMessages():
