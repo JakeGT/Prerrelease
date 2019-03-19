@@ -222,7 +222,7 @@ def ReceiveMorseCode(Dash, Letter, Dot):
   print(PlainText)
   #Print that stuff
 
-def SendMorseCode(MorseCode):
+def SendMorseCode(MorseCode, Letter):
   #Converts entered string into morsecode
   PlainText = input("Enter your message (uppercase letters and spaces only): ")
   #Takes user input and stores as PlainText
@@ -238,16 +238,24 @@ def SendMorseCode(MorseCode):
       #If that letter is a space
       Index = 0
       #Index is now 0
-    else: 
-      #If all else
+    elif PlainTextLetter in Letter: 
+      #If PlainTextLetter is an element of Letter
       Index = ord(PlainTextLetter) - ord('A') + 1
       #The index is now the charactercode of the plaintext letter minus 65 plus 1
-    CodedLetter = MorseCode[Index]
-    #The morsecode is indexed in the same order as the alphabet
-    MorseCodeString = MorseCodeString + CodedLetter + SPACE
-    #Just add all that together
-  print(MorseCodeString)
-  #Tell the user about it
+      CodedLetter = MorseCode[Index]
+      #The morsecode is indexed in the same order as the alphabet
+      MorseCodeString = MorseCodeString + CodedLetter + SPACE
+      #Just add all that together
+    else:
+      #If all else then an unsupported symbol was entered
+      ReportError("Non-standard symbol entered")
+      #Report that error to the user
+      MorseCodeString = ""
+      #MorseCodeString is now nothing
+  if MorseCodeString != "":
+    #If MorseCodeString is not nothing
+    print(MorseCodeString)
+    #Tell the user about it
 
 def DisplayMenu():
   #Shows the user the menu
@@ -285,7 +293,7 @@ def SendReceiveMessages():
       ReceiveMorseCode(Dash, Letter, Dot)
     elif MenuOption == 'S':
       #Same as above but S
-      SendMorseCode(MorseCode) 
+      SendMorseCode(MorseCode, Letter) 
     elif MenuOption == 'X':
       #Goodbye
       ProgramEnd = True
