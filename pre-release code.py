@@ -140,6 +140,24 @@ def SendMorseCode(MorseCode, Letter):
 			break
 	if MorseCodeString != '':
 		print(MorseCodeString)
+	outputString = ''
+	for letter in MorseCodeString:
+		if letter == '.':
+			outputString = outputString + "= "
+		elif letter == '-':
+			outputString = outputString + "=== "
+		elif letter == ' ':
+			outputString = outputString + "  "
+	FileName = input("Enter file name: ")
+	FNameLen = len(FileName)
+	if FileName[(FNameLen) - 4:FNameLen] != ".txt":
+		FileName = FileName + ".txt"
+	try:
+		FileHandle = open(FileName, 'w+')
+		FileHandle.write(outputString)
+		FileHandle.close()
+	except:
+		ReportError("No file found")
 
 def DisplayMenu():
 	print()
