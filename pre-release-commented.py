@@ -72,7 +72,7 @@ def GetTransmission():
     #Reads one line from the file
     FileHandle.close()
     #Closes the file
-    Transmission = StripLeadingSpaces(Transmission)\
+    Transmission = StripLeadingSpaces(Transmission)
     #Refer to subroutine in line 22
     if len(Transmission) > 0:
       #If the length of Transmission is more than 0
