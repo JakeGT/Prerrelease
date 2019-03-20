@@ -16,7 +16,7 @@ EMPTYSTRING = ''
 def ReportError(s):
   print('{0:<5}'.format('*'),s,'{0:>5}'.format('*')) 
   #Subroutine that is referred to when reporting an error to the user
-  #'{0:<5}',format('*') outputs five spaces followed by an astrix
+  #'{0:<5}'.format('*') outputs five spaces preceded by an astrix
   #s is an argument passed to the subroutine
 
 def StripLeadingSpaces(Transmission):
